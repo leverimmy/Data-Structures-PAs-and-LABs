@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="640" height="480" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML canvas tag.</canvas>
+
+<script>
+    var min_x = 1e9, max_x = -1e9, min_y = 1e9, max_y=-1e9;    
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    function draw(path, x, y, init) {
+        x = ((x - min_x) / (max_x - min_x) * 0.8 + 0.1) * c.width;
+        y = ((y - min_y) / (max_y - min_y) * 0.8 + 0.1) * c.height;
+        if (init) {
+            path.moveTo(x, y);
+        } else {
+            path.lineTo(x, y);
+        }
+    }
+
+    function readFileA () {
+        min_x = 1e9, max_x = -1e9, min_y = 1e9, max_y=-1e9;
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.strokeStyle = 'black';
+        ctx.setLineDash([]);
+
+        // (A) GET SELECTED FILE
+        let selected = document.getElementById("demoPickA").files[0];
+  
+        // (B) READ SELECTED FILE
+        let reader = new FileReader();
+        var data = [];
+        
+        reader.addEventListener("loadend", () => {
+          lines = reader.result.split('\n');
+          for (var i = 1; i <= Number(lines[0]); i++) {
+              datum = lines[i].split(' ');
+              x = Number(datum[0]);
+              y = -Number(datum[1]);
+              data.push([x, y]);
+              min_x = Math.min(min_x, x);
+              max_x = Math.max(max_x, x);
+              min_y = Math.min(min_y, y);
+              max_y = Math.max(max_y, y);
+            //   console.log(x, y)
+          }
+          
+        //   console.log(min_x, max_x, min_y, max_y)
+          let path = new Path2D();
+          draw(path, data.slice(-1)[0], data.slice(-1)[0], true);
+          
+          for (var i = 0; i < data.length; i++) {
+            draw(path, data[i][0], data[i][1], false);
+          }
+          draw(path, data[0][0], data[0][1], false);
+          ctx.stroke(path);          
+        });
+        reader.readAsText(selected);
+      }
+
+      function readFileB () {
+        readFileA();
+
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.strokeStyle = `rgb(0, 0, 255)`;
+        ctx.setLineDash([2, 3]);
+        
+        // (A) GET SELECTED FILE
+        let selected = document.getElementById("demoPickB").files[0];
+  
+        // (B) READ SELECTED FILE
+        let reader = new FileReader();
+        reader.addEventListener("loadend", () => {
+          lines = reader.result.split('\n');
+          for (var i = 0; i < lines.length; i++) {
+            // for (var i = 0; i < 1; i++) {
+            console.log(i);
+              line = lines[i].split(' ');
+              datum = [];
+              for (var j = 0; j < line.length; j++)
+                datum.push(Number(line[j]));                
+              let path = new Path2D();
+              draw(path, datum[0], -datum[1], true);
+              draw(path, datum[2], -datum[3], false);
+              draw(path, datum[4], -datum[5], false);
+              draw(path, datum[0], -datum[1], false);
+              ctx.stroke(path);
+          }
+        });
+        reader.readAsText(selected);
+      }
+  </script>
+
+<table>
+<tr>
+<td>
+选择输入文件：
+</td>
+<td>
+<input type="file" value="Choose TXT File" id="demoPickA" onchange="readFileA()"/>
+</td>
+</tr>
+<tr>
+    <td>
+    选择输出文件：
+    </td>
+    <td>
+        <input type="file" value="Choose TXT File" id="demoPickB" onchange="readFileB()"/>
+    </td>
+    </tr>
+</table>
+</body>
+</html>
+
+
