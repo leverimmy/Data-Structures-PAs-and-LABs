@@ -1,4 +1,5 @@
-# Data-Structures-PAs-and-LABs
+# Data-Structures
+
 Repository for codes of PAs and LABs of Data Structures, Fall 2023
 
 | 作业 |                            题目                             |
