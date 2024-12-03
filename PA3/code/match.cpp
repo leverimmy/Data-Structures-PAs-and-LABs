@@ -37,14 +37,14 @@ struct SPLAY {
     }
     // 下传标记
     void pushdown(int p) {
-		if(rev[p]) {
-			swap(ch[p][0], ch[p][1]);
+        if(rev[p]) {
+            swap(ch[p][0], ch[p][1]);
             swap(hash[p][0], hash[p][1]);
             rev[ch[p][0]] ^= 1;
             rev[ch[p][1]] ^= 1;
             rev[p] = 0;
-		}
-	}
+        }
+    }
     void connect(int p, int f, int o) {
         ch[f][o] = p;
         fa[p] = f;
@@ -94,17 +94,17 @@ struct SPLAY {
     }
     // 建立以 p 为根结点, f 为 p 的父结点, 表示区间 [l, r] 的子树
     void build(int &p, int f, int l, int r) {
-		if(l > r)
+        if(l > r)
             return;
-		int mid = l + r >> 1;
-		p = ++cnt;
+        int mid = l + r >> 1;
+        p = ++cnt;
         fa[p] = f;
         val[p] = hash[p][0] = hash[p][1] = arr[mid];
         rev[p] = 0;
-		build(ch[p][0], p, l, mid - 1);
-		build(ch[p][1], p, mid + 1, r);
-		pushup(p);
-	}
+        build(ch[p][0], p, l, mid - 1);
+        build(ch[p][1], p, mid + 1, r);
+        pushup(p);
+    }
     // 在 str[x] 前面插入 v
     void insert(int x, int v) {
         int p = kth(x - 1);
@@ -169,7 +169,7 @@ struct SPLAY {
             if (ch[p][1])
                 print(ch[p][1]);
         }        
-	}
+    }
 } t;
 
 // 初始化

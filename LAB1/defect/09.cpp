@@ -77,17 +77,17 @@ void play(int rank, char ch) {
     alen++;
     plen[pos.first]++;
 
-	// 块过长，重组
+    // 块过长，重组
     if (plen[pos.first] >= plen_bound) {
         p2a();
         a2p();
         pos = find(rank);
     }
 
-	// 计算需要消除的开区间 (l, r)
+    // 计算需要消除的开区间 (l, r)
     Rank l = pos, r = pos;
     Rank lbound, rbound;
-	int dis = 0;
+    int dis = 0;
     int eliminated = 0;
     while (1) {
         while (l.first >= 0 && get(l) == ch) {
@@ -122,7 +122,7 @@ void play(int rank, char ch) {
         }
     }
 
-	// 执行消除
+    // 执行消除
     if (eliminated > 0) {
         alen -= eliminated;
         l = lbound;
@@ -148,22 +148,22 @@ int main() {
     freopen("09.in", "r", stdin);
     freopen("09.out", "w", stdout);
     int n;
-	fgets(a, sizeof(a), stdin);
+    fgets(a, sizeof(a), stdin);
     alen = strlen(a);
-	if (alen > 0 && a[alen - 1] == '\n')
-		a[--alen] = '\0';
+    if (alen > 0 && a[alen - 1] == '\n')
+        a[--alen] = '\0';
     while (alen > 0 && (a[alen - 1] == '\n' || a[alen - 1] == '\r'))
         alen--;
     a2p();
-	scanf("%d", &n);
-	while (n--) {
-		char ch;
-		int rank;
-		scanf("%d %c", &rank, &ch);
+    scanf("%d", &n);
+    while (n--) {
+        char ch;
+        int rank;
+        scanf("%d %c", &rank, &ch);
         play(rank, ch);
-	}
+    }
     p2a();
     a[alen] = '\0';
     puts(a);
-	return 0;
+    return 0;
 }

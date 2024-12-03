@@ -20,7 +20,7 @@ void getJump(int l, int r) {
     for (int i = l, k = g[l - 1]; i <= r; ++i) {
         while (k > 0 && a[k + 1] != a[i])
             k = f[k][0];
-       	if (a[k + 1] == a[i])
+           if (a[k + 1] == a[i])
             ++k;
         // 一定要找到 *不重叠的* 前后缀，所以应当由 k * 2 <= i
         while (k * 2 > i)

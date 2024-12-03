@@ -35,7 +35,7 @@ public:
 
 
 int cmp(const void* p1, const void* p2) {
-	return *(int*)p1 - *(int*)p2;
+    return *(int*)p1 - *(int*)p2;
 }
 
 int search(int l, int r, LL v) {

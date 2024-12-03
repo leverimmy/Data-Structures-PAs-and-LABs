@@ -32,27 +32,27 @@ int solve(LL tx, LL ty) {
 }
 
 void mergeSort(int l, int r, LL q[]) {
-	if (l >= r)
+    if (l >= r)
         return;
 
-	int mid = l + r >> 1;
-	mergeSort(l, mid, q);
+    int mid = l + r >> 1;
+    mergeSort(l, mid, q);
     mergeSort(mid + 1, r, q);
-	
-	int i = l, j = mid + 1, k = 0;
-	while (i <= mid && j <= r) {    
-		if(q[i] < q[j])
+    
+    int i = l, j = mid + 1, k = 0;
+    while (i <= mid && j <= r) {    
+        if(q[i] < q[j])
             tmp[k++] = q[i++];
-		else
+        else
             tmp[k++] = q[j++];
-	}
-	while (i <= mid)
+    }
+    while (i <= mid)
         tmp[k++] = q[i++];
-	while (j <= r)
+    while (j <= r)
         tmp[k++] = q[j++];
     
-	for (i = l, j = 0; i <= r; ++i, ++j)
-		q[i] = tmp[j];
+    for (i = l, j = 0; i <= r; ++i, ++j)
+        q[i] = tmp[j];
 }
 
 int main() {

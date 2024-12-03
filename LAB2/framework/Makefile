@@ -1,5 +1,5 @@
 main: hashtable
-	g++ main.cpp hashtable.o -o main.exe
+    g++ main.cpp hashtable.o -o main.exe
 hashtable:
-	g++ hashtable.cpp -o hashtable.o -c
+    g++ hashtable.cpp -o hashtable.o -c
 

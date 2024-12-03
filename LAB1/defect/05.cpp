@@ -5,7 +5,7 @@ using namespace std;
 string a;
 
 void play(int rank){
-	int left = rank;
+    int left = rank;
     int right = rank;
     char color = a.at(rank);
 
@@ -26,7 +26,7 @@ void play(int rank){
 int main(){
     freopen("05.in", "r", stdin);
     freopen("05.out", "w", stdout);
-	cin >> a;
+    cin >> a;
     int m = 0;
     cin >> m;
 

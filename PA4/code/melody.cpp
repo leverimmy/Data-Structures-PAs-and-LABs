@@ -11,20 +11,20 @@ int lg2[N] = { -1 }, dep[N] = { 0, 1 };
 
 // 求 u 和 v 的最近公共祖先，使用倍增算法
 int lca(int u, int v) {
-	if(dep[u] < dep[v])
+    if(dep[u] < dep[v])
         std::swap(u, v);
-	int del = dep[u] - dep[v];
-	for (int i = 0; i <= lg2[dep[u]]; ++i)
-		if (del & (1 << i))
+    int del = dep[u] - dep[v];
+    for (int i = 0; i <= lg2[dep[u]]; ++i)
+        if (del & (1 << i))
             u = f[u][i];
-	if (u == v)
+    if (u == v)
         return u;
-	for (int i = lg2[dep[v]]; i >= 0; --i)
-		if (f[u][i] != f[v][i]) {
-			u = f[u][i];
-			v = f[v][i];
-		}
-	return f[u][0];
+    for (int i = lg2[dep[v]]; i >= 0; --i)
+        if (f[u][i] != f[v][i]) {
+            u = f[u][i];
+            v = f[v][i];
+        }
+    return f[u][0];
 }
 
 // 求 a[l...r] 内的 next 数组（及其构成的树）
@@ -32,7 +32,7 @@ void getNext(int l, int r) {
     for (int i = l, k = f[l - 1][0]; i <= r; ++i) {
         while (k > 0 && a[k + 1] != a[i])
             k = f[k][0];
-       	if (a[k + 1] == a[i])
+        if (a[k + 1] == a[i])
             ++k;
         // i 的父亲为 k
         f[i][0] = k;
@@ -40,7 +40,7 @@ void getNext(int l, int r) {
         dep[i] = dep[k] + 1;
         // 倍增预处理 next 树上 i 的 2^j 级父亲
         for (int j = 1; j <= lg2[dep[i]]; ++j)
-		    f[i][j] = f[f[i][j - 1]][j - 1];
+            f[i][j] = f[f[i][j - 1]][j - 1];
     }
 }
 
@@ -49,7 +49,7 @@ void getJump(int l, int r) {
     for (int i = l, k = g[l - 1]; i <= r; ++i) {
         while (k > 0 && a[k + 1] != a[i])
             k = f[k][0];
-       	if (a[k + 1] == a[i])
+        if (a[k + 1] == a[i])
             ++k;
         // 一定要找到 *不重叠的* 前后缀，所以应当由 k * 2 <= i
         while (k * 2 > i)
